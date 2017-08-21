@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="off">
+
+	<properties>
+		<property name="LOGGER_HOME">/timedtask/logs/time_task</property>
+	</properties>
+
+	<appenders>
+		<!-- 控制台 -->
+		<console name="CONSOLE" target="SYSTEM_OUT" follow="true">
+			<patternLayout charset="UTF-8" pattern="%date{yyyy-MM-dd_HH:mm:ss}[%-5level]%logger[%line]-%message%n" />
+		</console>
+		<!-- 调试 -->
+		<rollingFile name="DEBUG" fileName="${LOGGER_HOME}/debug.log" filePattern="${LOGGER_HOME}/debug.log.%date{yyyyMMdd}">
+			<filters>
+				<thresholdFilter level="info" onMatch="DENY" onMismatch="NEUTRAL" />
+				<thresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY" />
+			</filters>
+			<patternLayout charset="UTF-8" pattern="%date{yyyy-MM-dd_HH:mm:ss}[%-5level]%logger[%line]-%message%n" />
+			<policies>
+				<timeBasedTriggeringPolicy />
+			</policies>
+		</rollingFile>
+		<!-- 信息 -->
+		<rollingFile name="INFO" fileName="${LOGGER_HOME}/info.log" filePattern="${LOGGER_HOME}/info.log.%date{yyyyMMdd}">
+			<filters>
+				<thresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL" />
+				<thresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY" />
+			</filters>
+			<patternLayout charset="UTF-8" pattern="%date{yyyy-MM-dd_HH:mm:ss}[%-5level]%logger[%line]-%message%n" />
+			<policies>
+				<timeBasedTriggeringPolicy />
+			</policies>
+		</rollingFile>
+		<!-- 警告 -->
+		<rollingFile name="WARN" fileName="${LOGGER_HOME}/warn.log" filePattern="${LOGGER_HOME}/warn.log.%date{yyyyMMdd}">
+			<filters>
+				<thresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY" />
+			</filters>
+			<patternLayout charset="UTF-8" pattern="%date{yyyy-MM-dd_HH:mm:ss}[%-5level]%logger[%line]-%message%n" />
+			<policies>
+				<timeBasedTriggeringPolicy />
+			</policies>
+		</rollingFile>
+		<!-- 错误 -->
+		<rollingFile name="ERROR" fileName="${LOGGER_HOME}/error.log" filePattern="${LOGGER_HOME}/error.log.%date{yyyyMMdd}">
+			<filters>
+				<thresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY" />
+			</filters>
+			<patternLayout charset="UTF-8" pattern="%date{yyyy-MM-dd_HH:mm:ss}[%-5level]%logger[%line]-%message%n" />
+			<policies>
+				<timeBasedTriggeringPolicy />
+			</policies>
+		</rollingFile>
+	</appenders>
+
+	<loggers>
+		<root level="debug">
+			<appender-ref ref="CONSOLE" />
+			<appender-ref ref="DEBUG" />
+			<appender-ref ref="INFO" />
+			<appender-ref ref="WARN" />
+			<appender-ref ref="ERROR" />
+			
+		</root>
+	</loggers>
+</configuration>
